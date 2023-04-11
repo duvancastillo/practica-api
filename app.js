@@ -1,7 +1,7 @@
 const cards = document.getElementById("card-dinamicas");
 const template = document.getElementById("template").content;
 const url = "https://rickandmortyapi.com/api/character";
-
+ 
 document.addEventListener("DOMContentLoaded", () => {
   fetchData();
 });
@@ -22,7 +22,7 @@ const fetchData = async () => {
 const pintarCards = (data) => {
   const fragment = document.createDocumentFragment();
   data.results.forEach((item) => {
-    console.log(item);
+    
     const clone = template.cloneNode(true);
     clone.querySelector("h5").textContent = item.name;
     clone.querySelector(".text-secundary").textContent = item.species;
