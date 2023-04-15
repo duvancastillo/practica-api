@@ -6,10 +6,11 @@ const templateEstudiantes = document.getElementById(
 ).content;
 const templateProfesores =
   document.getElementById("templateProfesores").content;
+const alert = document.querySelector(".alert");
 
 const estudiantes = [];
 const profesores = [];
-//delegacion de eventos para los botones de aproba y reprobar 
+//delegacion de eventos para los botones de aproba y reprobar
 document.addEventListener("click", (e) => {
   if (e.target.dataset.id) {
     if (e.target.matches(".btn-success")) {
@@ -69,7 +70,7 @@ class Estudiante extends Persona {
   get getEstudiante() {
     return this.#estudiante;
   }
-//agregadndo nuevo estudiante al templateEstudiante
+  //agregadndo nuevo estudiante al templateEstudiante
   agregarEstudiante() {
     const clone = templateEstudiantes.cloneNode(true);
     clone.querySelector(".text-primary").textContent = this.nombre;
@@ -109,10 +110,16 @@ generarIdUnico1 = () => Math.random().toString(30).substring(2);
 // se captura los datos desde el formulario para instanciar porfesores y alumnos
 formulario.addEventListener("submit", (e) => {
   e.preventDefault();
+  alert.classList.add("d-none")
 
   const datos = new FormData(formulario);
 
   const [nombre, edad, opcion] = [...datos.values()];
+  //validar que no envien campos vaciso
+  if (!nombre.trim() || !edad.trim()) {
+    alert.classList.remove("d-none");
+    return;
+  }
   const id = generarIdUnico1();
   if (opcion === "Estudiante") {
     const estudiante = new Estudiante(nombre, edad, id);
